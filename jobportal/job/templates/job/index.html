@@ -4,4 +4,81 @@
 
 {% include 'job/navigation.html' %}
 
+<style>
+    .container{
+        max-width: 90%;
+    }
+
+    .content{
+        text-align: center;
+        position: absolute;
+        bottom: 0;
+        background: rgba(0,0,0,0.5);
+        color: white;
+        height: 30px;
+        width: 91%;
+    }
+
+</style>
+
+<div class="container-fluid" style="margin-top: 1%;">
+    <img src="{% static 'job/images/job2.jpg'%}" alt="" style="width: 100%; height: 450px;">
+</div>
+
+<div class="container" style="background-color: black; height: 650px; margin-top: 2%;">
+    <h1 class="text-center text-white">----------| OUR PLACED STUDENTS |----------</h1>
+    <div class="row mt-3">
+        <div class="col-md-3">
+            <img src="{% static 'job/images/facebook.jpeg'%}" style="width: 100%; margin-top: 5%; height: 200px;border-radius: 50%;">
+            <div class="content">
+                <p>Facebook</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <img src="{% static 'job/images/facebook2.jpeg'%}" style="width: 100%; margin-top: 5%; height: 200px;border-radius: 50%;">
+            <div class="content">
+                <p>Facebook</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <img src="{% static 'job/images/facebook3.jpeg'%}" style="width: 100%; margin-top: 5%; height: 200px;border-radius: 50%;">
+            <div class="content">
+                <p>Facebook</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <img src="{% static 'job/images/amazon.jpeg'%}" style="width: 100%; margin-top: 5%; height: 200px;border-radius: 50%;">
+            <div class="content">
+                <p>Amazon</p>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-3">
+            <img src="{% static 'job/images/linkedin.jpeg'%}" style="width: 100%; margin-top: 5%; height: 200px;border-radius: 50%;">
+            <div class="content">
+                <p>LinkedIn</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <img src="{% static 'job/images/infosystem.jpeg'%}" style="width: 100%; margin-top: 5%; height: 200px;border-radius: 50%;">
+            <div class="content">
+                <p>Infosys</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <img src="{% static 'job/images/amazon2.jpeg'%}" style="width: 100%; margin-top: 5%; height: 200px;border-radius: 50%;">
+            <div class="content">
+                <p>Amazon</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <img src="{% static 'job/images/hcl.jpeg'%}" style="width: 100%; margin-top: 5%; height: 200px;border-radius: 50%;">
+            <div class="content">
+                <p>HCL</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock body %}
