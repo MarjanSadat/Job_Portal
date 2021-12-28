@@ -5,15 +5,15 @@
 {% include 'job/navigation.html' %}
 
 <marquee behavior="" direction="" style="font-family: cursive; font-size: 25px; color: darkcyan;background-color: black; font-weight: bold; margin-top: 1%;">
-    Admin Login
+    Recruiter Login
 </marquee>
 
 <hr>
 
 <form action="" method="POST" class="container mt-5">
     {% csrf_token %}
-    <label for=""><b>UserName</b></label>
-    <input type="text" class="form-control" name="uname" placeholder="Enter UserName">
+    <label for=""><b>Email ID</b></label>
+    <input type="email" class="form-control" name="uname" placeholder="Enter Email ID">
     <label for=""><b>Password</b></label>
     <input type="password" class="form-control" name="pwd" placeholder="Enter Password">
     <input type="submit" class="btn btn-primary" style="margin-top: 2%; color: darkcyan; background-color: black; height: 40px;">
