@@ -7,6 +7,7 @@ from django.db.models.base import Model
 class StudentUser(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     mobile = models.CharField(max_length=15, null=True)
+    # image = models.ImageField(upload_to = "images")
     image = models.FileField(null=True)
     gender = models.CharField(max_length=10, null=True)
     type = models.CharField(max_length=15, null=True)

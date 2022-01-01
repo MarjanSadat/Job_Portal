@@ -4,44 +4,55 @@
 
 {% include 'job/navigation.html' %}
 
+<script>
+    function checkpass(){
+        if(document.signup.pwd.value != document.signup.cpwd.value){
+            alert("password and repeat password field does not match!");
+            document.signup.cpwd.focus();
+            return false;
+        }
+        return true;
+    }
+</script>
+
 <marquee behavior="" direction="" style="font-family: cursive; font-size: 25px; color: darkcyan;background-color: black; font-weight: bold; margin-top: 1%;">
     User SignUp
 </marquee>
 
 <hr>
 
-<form action="" method="POST" class="container mt-5" enctype="multipart/form-data">
+<form action="" onsubmit="return checkpass();" name="signup" method="POST" class="container mt-5" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="">First Name</label>
-            <input type="text" class="form-control" name="fname" placeholder="Enter First Name">
+            <input type="text" class="form-control" name="fname" placeholder="Enter First Name" required>
         </div>
         <div class="form-group col-md-6">
             <label for="">Last Name</label>
-            <input type="text" class="form-control" name="lname" placeholder="Enter Last Name">
+            <input type="text" class="form-control" name="lname" placeholder="Enter Last Name" required>
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-md-12">
             <label for="">Conatct</label>
-            <input type="text" class="form-control" name="contact" placeholder="Enter Contact">
+            <input type="text" class="form-control" name="contact" placeholder="Enter Contact" required>
         </div>        
     </div>
     <div class="form-row">
         <div class="form-group col-md-12">
             <label for="">Email ID</label>
-            <input type="text" class="form-control" name="email" placeholder="Enter Email Address">
+            <input type="email" class="form-control" name="email" placeholder="Enter Email Address" required>
         </div>        
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="">Password</label>
-            <input type="text" class="form-control" name="pwd" placeholder="Enter Password">
+            <input type="password" class="form-control" name="pwd" placeholder="Enter Password" required>
         </div>
         <div class="form-group col-md-6">
             <label for="">Confirm Password</label>
-            <input type="text" class="form-control" name="cpwd" placeholder="Enter Password Again">
+            <input type="password" class="form-control" name="cpwd" placeholder="Enter Password Again" required>
         </div>
     </div>
     <div class="form-row">
@@ -60,11 +71,25 @@
         </div>
         <div class="form-group col-md-6">
             <label for="">Image</label>
-            <input type="file" class="form-control" name="image" >
+            <input type="file" class="form-control" name="image" required >
         </div>
     </div>
     <input type="submit" value="Submit" class="btn btn-primary mt-3" style="width: 200px;">
 </form>
 
 {% include 'job/footer.html' %}
+
+{% ifequal error 'no' %}
+    <script>
+        alert("signup successful!")
+        window.location("{% url 'job:user_login' %}");
+    </script>
+{% endifequal %}
+
+{% ifequal error 'yes' %}
+    <script>
+        alert("something went wrong, try again ....");
+    </script>
+{% endifequal %}
+
 {% endblock body %}
