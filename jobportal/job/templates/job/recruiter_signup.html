@@ -16,7 +16,7 @@
 </script>
 
 <marquee behavior="" direction="" style="font-family: cursive; font-size: 25px; color: darkcyan;background-color: black; font-weight: bold; margin-top: 1%;">
-    User SignUp
+    Recruiter SignUp
 </marquee>
 
 <hr>
@@ -34,9 +34,13 @@
         </div>
     </div>
     <div class="form-row">
-        <div class="form-group col-md-12">
+        <div class="form-group col-md-6">
             <label for="">Conatct</label>
             <input type="text" class="form-control" name="contact" placeholder="Enter Contact" required>
+        </div>     
+        <div class="form-group col-md-6">
+            <label for="">Company</label>
+            <input type="text" class="form-control" name="comapny" placeholder="Enter your comapny name" required>
         </div>        
     </div>
     <div class="form-row">
@@ -82,13 +86,19 @@
 {% ifequal error 'no' %}
     <script>
         alert("signup successful!")
-        window.location.replace("{% url 'job:user_login' %}");
+        window.location("{% url 'job:recruiter_login' %}");
     </script>
 {% endifequal %}
 
 {% ifequal error 'yes' %}
     <script>
         alert("something went wrong, try again ....");
+    </script>
+{% endifequal %}
+
+{% ifequal error 'not' %}
+    <script>
+        alert("your login status is pending");
     </script>
 {% endifequal %}
 

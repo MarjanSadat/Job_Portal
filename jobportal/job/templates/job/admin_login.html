@@ -20,4 +20,20 @@
 </form>
 
 {% include 'job/footer.html' %}
+
+{% ifequal error 'no' %}
+    <script>
+        alert("Login successful!")
+        window.location.replace("{% url 'job:admin_home' %}");
+    </script>
+{% endifequal %}
+
+{% ifequal error 'yes' %}
+    <script>
+        alert("Invalid login credentials, try again ....");
+    </script>
+{% endifequal %}
+
+
+
 {% endblock body %}

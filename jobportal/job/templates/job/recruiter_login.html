@@ -17,7 +17,23 @@
     <label for=""><b>Password</b></label>
     <input type="password" class="form-control" name="pwd" placeholder="Enter Password">
     <input type="submit" class="btn btn-primary" style="margin-top: 2%; color: darkcyan; background-color: black; height: 40px;">
+    <a href="{% url 'job:recruiter_signup' %}" class="btn btn-primary" style="margin-top: 2%; color: darkcyan; background-color: black; height: 40px;">CREATE AN ACCOUNT</a>
 </form>
 
 {% include 'job/footer.html' %}
+
+{% ifequal error 'no' %}
+    <script>
+        alert("Login successful!")
+        window.location.replace("{% url 'job:recruiter_home' %}");
+    </script>
+{% endifequal %}
+
+{% ifequal error 'yes' %}
+    <script>
+        alert("Invalid login credentials, try again ....");
+    </script>
+{% endifequal %}
+
+
 {% endblock body %}

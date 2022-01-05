@@ -25,7 +25,7 @@
 {% ifequal error 'no' %}
     <script>
         alert("Login successful!")
-        window.location("{% url 'job:user_home' %}");
+        window.location.replace("{% url 'job:user_home' %}");
     </script>
 {% endifequal %}
 

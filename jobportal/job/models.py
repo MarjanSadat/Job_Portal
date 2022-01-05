@@ -14,3 +14,16 @@ class StudentUser(models.Model):
 
     def __str__(self):
         return self.user.username
+
+class Recruiter(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    mobile = models.CharField(max_length=15, null=True)
+    # image = models.ImageField(upload_to = "images")
+    image = models.FileField(null=True)
+    gender = models.CharField(max_length=10, null=True)
+    company = models.CharField(max_length=100, null=True)
+    type = models.CharField(max_length=15, null=True)
+    status = models.CharField(max_length=20, null=True)
+
+    def __str__(self):
+        return self.user.username
