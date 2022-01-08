@@ -126,6 +126,24 @@ def view_users(request):
     d = {'data':data}
     return render(request, 'job/view_users.html',d)
 
+def delete_user(request,pid):
+    if not request.user.is_authenticated:
+        return redirect('job:admin_login')
+
+    student = StudentUser.objects.get(id=pid)
+    print(student)
+    student.delete()
+    return redirect('job:view_users')
+
+
+def recruiter_pending(request):
+    if not request.user.is_authenticated:
+        return redirect('job:admin_login')
+
+    data = Recruiter.objects.filter(status='pending')
+    d = {'data':data}
+
+    return render(request, 'job/recruiter_pending.html',d)
 
 def recruiter_home(request):
     if not request.user.is_authenticated:
