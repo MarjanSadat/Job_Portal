@@ -130,10 +130,18 @@ def delete_user(request,pid):
     if not request.user.is_authenticated:
         return redirect('job:admin_login')
 
-    student = StudentUser.objects.get(id=pid)
-    print(student)
+    student = User.objects.get(id=pid)
     student.delete()
     return redirect('job:view_users')
+
+def delete_recruiter(request,pid):
+    if not request.user.is_authenticated:
+        return redirect('job:admin_login')
+
+    recruiter = User.objects.get(id=pid) 
+    print(recruiter) 
+    recruiter.delete()
+    return redirect('job:recruiter_all')
 
 
 def recruiter_pending(request):
@@ -144,6 +152,52 @@ def recruiter_pending(request):
     d = {'data':data}
 
     return render(request, 'job/recruiter_pending.html',d)
+
+def change_status(request,pid):
+    if not request.user.is_authenticated:
+        return redirect('job:admin_login')
+
+    error = ''
+    recruiter = Recruiter.objects.get(id=pid)
+    if request.method == 'POST':
+        s = request.POST.get('status')
+        recruiter.status = s
+        try:
+            recruiter.save()
+            error = 'no'
+        except:
+            error = 'yes'
+
+    d = {'recruiter':recruiter, 'error':error}
+
+    return render(request, 'job/change_status.html',d)
+
+def recruiter_accepted(request):
+    if not request.user.is_authenticated:
+        return redirect('job:admin_login')
+
+    data = Recruiter.objects.filter(status='Accept')
+    d = {'data':data}
+
+    return render(request, 'job/recruiter_accepted.html',d)
+
+def recruiter_rejected(request):
+    if not request.user.is_authenticated:
+        return redirect('job:admin_login')
+
+    data = Recruiter.objects.filter(status='Reject')
+    d = {'data':data}
+
+    return render(request, 'job/recruiter_rejected.html',d)
+
+def recruiter_all(request):
+    if not request.user.is_authenticated:
+        return redirect('job:admin_login')
+
+    data = Recruiter.objects.all()
+    d = {'data':data}
+
+    return render(request, 'job/recruiter_all.html',d)
 
 def recruiter_home(request):
     if not request.user.is_authenticated:

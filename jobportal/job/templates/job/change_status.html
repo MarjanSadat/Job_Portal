@@ -1,0 +1,41 @@
+{% load static %}
+
+{% block body %}
+
+{% include 'job/admin_navigation.html' %}
+
+<marquee behavior="" direction="" style="font-family: cursive; font-size: 25px; color: darkcyan;background-color: black; font-weight: bold; margin-top: 1%;">
+    View Recruiter - Pending
+</marquee>
+
+<hr>
+
+<form action="" method="POST" class="container mt-5">
+    {% csrf_token %}
+    <label for=""><b>Recruiter Name</b></label>
+    <input type="text" class="form-control" name="uname" value="{{recruiter.user.first_name}} {{recruiter.user.last_name}}">
+    <label for=""><b>Status</b></label>
+    <select name="status" class="form-control">
+        <option value="Accept">Accept</option>
+        <option value="Reject">Reject</option>
+    </select>
+
+    <input type="submit" class="btn btn-primary" style="margin-top: 2%; color: darkcyan; background-color: black; height: 40px;">
+</form>
+
+{% include 'job/footer.html' %}
+
+{% ifequal error 'no' %}
+    <script>
+        alert("status changed successful!")
+        window.location.replace("{% url 'job:recruiter_all' %}");
+    </script>
+{% endifequal %}
+
+{% ifequal error 'yes' %}
+    <script>
+        alert("something went wrong, try again ....");
+    </script>
+{% endifequal %}
+
+{% endblock body %}

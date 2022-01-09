@@ -91,9 +91,9 @@
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-users mr-1"></i>Recruiters</a>
                     <div class="dropdown-menu">
                         <a href="{% url 'job:recruiter_pending' %}" class="dropdown-item">Pending</a>
-                        <a href="#" class="dropdown-item">Accepted</a>
-                        <a href="#" class="dropdown-item">Rejected</a>
-                        <a href="#" class="dropdown-item">All Recruiters</a>
+                        <a href="{% url 'job:recruiter_accepted' %}" class="dropdown-item">Accepted</a>
+                        <a href="{% url 'job:recruiter_rejected' %}" class="dropdown-item">Rejected</a>
+                        <a href="{% url 'job:recruiter_all' %}" class="dropdown-item">All Recruiters</a>
                     </div>
                 </li>
              
