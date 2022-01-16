@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from .models import *
+from datetime import date
 # Create your views here.
 
 def index(request):
@@ -54,12 +55,13 @@ def user_login(request):
 def recruiter_login(request):
     error = ""
     if request.method == 'POST':
-        u = f = request.POST.get('uname')
-        p = f = request.POST.get('pwd')
+        u =  request.POST.get('uname')
+        p =  request.POST.get('pwd')
         user = authenticate(username = u, password = p)
         if user:
             try:
                 user1 = Recruiter.objects.get(user = user)
+                print(user1.status)
                 if user1.type == 'recruiter' and user1.status != 'pending':
                     login(request,user)
                     error = 'no'
@@ -72,7 +74,7 @@ def recruiter_login(request):
             error = 'yes'
     
     d = {'error' :error}
-
+    print(error)
     return render(request, 'job/recruiter_login.html',d)
 
 def recruiter_signup(request):
@@ -81,7 +83,7 @@ def recruiter_signup(request):
     if request.method == 'POST':
         f = request.POST.get('fname')
         l = request.POST.get('lname')
-        i = request.POST.get('image')
+        i = request.FILES.get('image')
         p = request.POST.get('pwd')
         e = request.POST.get('email')
         con = request.POST.get('contact')
@@ -103,7 +105,7 @@ def user_signup(request):
     if request.method == 'POST':
         f = request.POST.get('fname')
         l = request.POST.get('lname')
-        i = request.POST.get('image')
+        i = request.FILES.get('image')
         p = request.POST.get('pwd')
         e = request.POST.get('email')
         con = request.POST.get('contact')
@@ -172,6 +174,76 @@ def change_status(request,pid):
 
     return render(request, 'job/change_status.html',d)
 
+def change_passwordadmin(request):
+    if not request.user.is_authenticated:
+        return redirect('job:admin_login')
+
+    error = ''
+    if request.method == 'POST':
+        c = request.POST.get('currentpassword')
+        n = request.POST.get('newpassword')
+        try:
+            u = User.objects.get(id=request.user.id)
+            if u.check_password(c):
+                u.set_password(n)
+                u.save()
+                error = 'no'
+            else:
+                error = 'not'
+        except:
+            error = 'yes'
+
+    d = {'error':error}
+
+    return render(request, 'job/change_passwordadmin.html',d)
+
+def change_passworduser(request):
+    if not request.user.is_authenticated:
+        return redirect('job:user_login')
+
+    error = ''
+    if request.method == 'POST':
+        c = request.POST.get('currentpassword')
+        n = request.POST.get('newpassword')
+        try:
+            u = User.objects.get(id=request.user.id)
+            if u.check_password(c):
+                u.set_password(n)
+                u.save()
+                error = 'no'
+            else:
+                error = 'not'
+        except:
+            error = 'yes'
+
+    d = {'error':error}
+
+    return render(request, 'job/change_passworduser.html',d)
+
+def change_passwordrecruiter(request):
+    if not request.user.is_authenticated:
+        return redirect('job:recruiter_login')
+
+    error = ''
+    if request.method == 'POST':
+        c = request.POST.get('currentpassword')
+        n = request.POST.get('newpassword')
+        try:
+            u = User.objects.get(id=request.user.id)
+            if u.check_password(c):
+                u.set_password(n)
+                u.save()
+                error = 'no'
+            else:
+                error = 'not'
+        except:
+            error = 'yes'
+
+    d = {'error':error}
+
+    return render(request, 'job/change_passwordrecruiter.html',d)
+
+
 def recruiter_accepted(request):
     if not request.user.is_authenticated:
         return redirect('job:admin_login')
@@ -219,3 +291,35 @@ def admin_home(request):
 def Logout(request):
     logout(request)
     return redirect('job:index')
+
+def add_job(request):
+    if not request.user.is_authenticated:
+        return redirect('job:recruiter_login')
+    
+    error = ''
+    if request.method == 'POST':
+        jt = request.POST.get('jobtitle')
+        sd = request.POST.get('startdate')
+        ed = request.POST.get('enddate')
+        sal = request.POST.get('salary')
+        l = request.FILES.get('logo')
+        exp = request.POST.get('experience')
+        loc = request.POST.get('location')
+        skills = request.POST.get('skills')
+        des = request.POST.get('description')
+        user = request.user
+        print(user)
+        recruiter = Recruiter.objects.get(user=user)
+        try:
+            Job.objects.create(recruiter=recruiter,start_date=sd,end_date=ed,title=jt,salary=sal,image=l,description=des,experience=exp,location=loc,skills=skills,creationdate=date.today())
+            error = 'no'
+        except:
+            error = 'yes'
+    d = {'error' : error}
+    return render(request, 'job/add_job.html',d)
+
+def job_list(request):
+    if not request.user.is_authenticated:
+        return redirect('job:recruiter_login')
+   
+    return render(request, 'job/job_list.html')
