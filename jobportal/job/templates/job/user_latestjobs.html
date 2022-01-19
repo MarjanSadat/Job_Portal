@@ -2,7 +2,7 @@
 
 {% block body %}
 
-{% include 'job/recruiter_navigation.html' %}
+{% include 'job/user_navigation.html' %}
 
 <style>
     tr{
@@ -11,7 +11,7 @@
 </style>
 
 <marquee behavior="" direction="" style="font-family: cursive; font-size: 25px; color: darkcyan;background-color: black; font-weight: bold; margin-top: 1%;">
-    Manage Job Details
+    Latest Job List
 </marquee>
 
 <hr>
@@ -21,9 +21,11 @@
         <thead>
             <tr style="background-color: #000080; color: white;">
                 <th>S.No.</th>
+                <th>Company Name</th>
                 <th>Job Title</th>
-                <th>CreationDate</th>
-                
+                <th>Location</th>
+                <th>Start Date</th>
+                <th>End Date</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -31,13 +33,20 @@
             {% for i in job %}
                 <tr style="background-color: #DEB887;">
                     <td>{{forloop.counter}}</td>
+                    <td>{{i.recruiter.company}}</td>
                     <td>{{i.title}}</td>
-                    <td>{{i.creationdate}}</td>
-                    
+                    <td>{{i.location}}</td>
+                    <td>{{i.start_date}}</td>
+                    <td>{{i.end_date}}</td>
+                    {% if i.id in li %}
                     <td>
-                        <a href="{% url 'job:edit_jobdetail' i.id%}" class="btn btn-success btn-sm" >Edit</a>
-                        <a href="{% url 'job:change_status' i.id%}" class="btn btn-danger btn-sm" >Delete</a>
+                        Applied
                     </td>
+                    {% else %}
+                    <td>
+                        <a href="{% url 'job:job_detail' i.id %}" class="btn btn-success btn-sm" >Apply</a>                        
+                    </td>
+                    {% endif %}
                 </tr>
             {% endfor %}
         </tbody>
