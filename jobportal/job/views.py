@@ -351,7 +351,16 @@ def user_home(request):
 def admin_home(request):
     if not request.user.is_authenticated:
         return redirect('job:admin_login')
-    return render(request, 'job/admin_home.html')
+    
+    rcount = Recruiter.objects.all().count()
+    scount = StudentUser.objects.all().count()
+
+    d = {
+        'rcount':rcount,
+        'scount':scount
+    }
+
+    return render(request, 'job/admin_home.html',d)
 
 def Logout(request):
     logout(request)
@@ -486,6 +495,39 @@ def user_latestjobs(request):
 
 def job_detail(request, pid):
     job = Job.objects.get(id=pid)
-    d = {'job':job}
-    
+    d = {'job':job}    
     return render(request,'job/job_detail.html',d)
+
+def applyforjob(request,pid):
+    if not request.user.is_authenticated:
+        return redirect('job:user_login')
+    
+    error = ''
+    user = request.user
+    student = StudentUser.objects.get(user=user)
+    job = Job.objects.get(id=pid)
+    date1 = date.today()
+    if job.end_date < date1:
+        error = "close"
+    elif job.start_date > date1:
+        error = "notopen"
+    else:
+        if request.method == 'POST':
+            r = request.FILES.get('resume')
+            Apply.objects.create(student=student,job=job,resume=r,applydate=date.today())
+            error = "done"
+           
+    d = {'error' : error}
+    return render(request, 'job/applyforjob.html',d)
+
+def applied_candidatelist(request):
+    if not request.user.is_authenticated:
+        return redirect('job:recruiter_login')
+
+    data = Apply.objects.all()
+    
+    d = {'data' : data}
+    return render(request, 'job/applied_candidatelist.html',d)
+
+def contact(request):
+    return render(request,'job/contact.html')

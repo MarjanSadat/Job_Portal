@@ -1,0 +1,45 @@
+{% load static %}
+
+{% block body %}
+
+{% include 'job/navigation.html' %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.6.3/css/all.min.css">
+
+<style>
+    .mydiv:hover{
+        box-shadow: 0 0 20px 0 rgba(0,0,0,0.3);
+        transform: translateY(-20px);
+    }
+</style>
+
+<marquee behavior="" direction="" style="font-family: cursive; font-size: 25px; color: darkcyan;background-color: black; font-weight: bold; margin-top: 1%;">
+    Contact Us
+</marquee>
+
+<hr>
+
+<div class="container mt-5">
+    <br>
+    <br>
+    <div class="row mt-5">
+        <div class="col-sm-3 mydiv">
+            <h4 class="text-center"><i class="fas fa-phone-square mr-2"></i>Contact</h4>
+            <p class="text-center">+98 9107878533</p>
+        </div>
+        <div class="col-sm-3 mydiv">
+            <h4 class="text-center"><i class="fas fa-envelope mr-2"></i>Email ID</h4>
+            <p class="text-center">marjanmousavi@ymail.com</p>
+        </div>
+        <div class="col-sm-3 mydiv">
+            <h4 class="text-center"><i class="fas fa-phone-square mr-2"></i>Address</h4>
+            <p class="text-center">Iran Tehran Abshar</p>
+        </div>
+        <div class="col-sm-3 mydiv">
+            <h4 class="text-center"><i class="far fa-clock mr-2"></i>Office Timing</h4>
+            <p class="text-center">10:00 AM to 7:00 PM</p>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}
