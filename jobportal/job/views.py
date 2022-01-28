@@ -40,7 +40,7 @@ def user_login(request):
                 if user1.type == 'student':
                     login(request,user)
                     error = 'no'
-                    return render(request, 'job/user_home.html')
+                    # return render(request, 'job/user_home.html')
                 else:
                     error = 'yes'
             except:
@@ -49,7 +49,7 @@ def user_login(request):
             error = 'yes'
     
     d = {'error' :error}
-
+   
     return render(request, 'job/user_login.html', d)
 
 def recruiter_login(request):
